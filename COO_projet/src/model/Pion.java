@@ -13,7 +13,7 @@ public class Pion extends AbstractPiece{
 	public boolean movePossible(int x, int y) {
 		boolean move = false;
 		if (Coord.coordonnees_valides(x, y) == true)
-			if ((x-coordPiece.x)==1 && coordPiece.y==y)
+			if ((x-coordPiece.x)==1 && coordPiece.y==y)//avance de 1 seulement
 				move = true;
 		return move;
 	}

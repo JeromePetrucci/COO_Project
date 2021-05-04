@@ -1,6 +1,6 @@
 package model;
 
-//import model.Coord;
+
 
 public abstract class AbstractPiece implements Pieces {
 	
@@ -26,6 +26,13 @@ public abstract class AbstractPiece implements Pieces {
 		return coordPiece;
 	}
 	
+	public int getCoordx() {
+		return coordPiece.x;
+	}
+	
+	public int getCoordy() {
+		return coordPiece.y;
+	}
 
 	
 	public Couleur getCouleur() {
