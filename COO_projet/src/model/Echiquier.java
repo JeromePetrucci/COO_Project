@@ -43,11 +43,14 @@ public class Echiquier {
 		return ret;
 	}
 	
-	public void move(int xPiece,int yPiece, int xArrive,int yArrive) {
+	public boolean move(int xPiece,int yPiece, int xArrive,int yArrive) {
+		boolean ret=false;
 		if (isMoveOk(xPiece,yPiece, xArrive,yArrive) == true) {
 			message = "déplacement OK";
 			JeuCourant.movement( xPiece, yPiece,  xArrive, yArrive);
+			ret=true;
 		}
+		return ret;
 	}
 	
 	
@@ -70,7 +73,7 @@ public class Echiquier {
 	public static void main(String[] args) {
 		Echiquier E = new Echiquier();
 		
-		System.out.println(E.getPiecesIHM());
+		System.out.println(E.move(0,7,1,7));
 	}
 	
 }
