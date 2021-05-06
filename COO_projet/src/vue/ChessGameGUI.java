@@ -3,7 +3,16 @@ package vue;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
+
 import javax.swing.*;
+
+import model.Coord;
+import model.Couleur;
+import model.Echiquier;
+import model.Jeu;
+import model.PieceIHM;
+import tools.ChessImageProvider;
  
 public class ChessGameGUI extends JFrame implements MouseListener, MouseMotionListener {
   JLayeredPane layeredPane;
@@ -13,49 +22,60 @@ public class ChessGameGUI extends JFrame implements MouseListener, MouseMotionLi
   int yAdjustment;
  
   public ChessGameGUI(){
-  Dimension boardSize = new Dimension(600, 600);
- 
-  //  Use a Layered Pane for this this application
- layeredPane = new JLayeredPane();
-  getContentPane().add(layeredPane);
-  layeredPane.setPreferredSize(boardSize);
-  layeredPane.addMouseListener(this);
-  layeredPane.addMouseMotionListener(this);
+	Dimension boardSize = new Dimension(600, 600);
+	 
+	//  Use a Layered Pane for this this application
+	layeredPane = new JLayeredPane();
+	getContentPane().add(layeredPane);
+	layeredPane.setPreferredSize(boardSize);
+	layeredPane.addMouseListener(this);
+	layeredPane.addMouseMotionListener(this);
 
-  //Add a chess board to the Layered Pane 
- 
-  chessBoard = new JPanel();
-  layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-  chessBoard.setLayout( new GridLayout(8, 8) );
-  chessBoard.setPreferredSize( boardSize );
-  chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
- 
-  for (int i = 0; i < 64; i++) {
-  JPanel square = new JPanel( new BorderLayout() );
-  chessBoard.add( square );
- 
-  int row = (i / 8) % 2;
-  if (row == 0)
-  square.setBackground( i % 2 == 0 ? Color.black : Color.white );
-  else
-  square.setBackground( i % 2 == 0 ? Color.white : Color.black );
-  }
- 
-//Add a few pieces to the board
+	//Add a chess board to the Layered Pane 
+		 
+	chessBoard = new JPanel();
+	layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+	chessBoard.setLayout( new GridLayout(8, 8) );
+	chessBoard.setPreferredSize( boardSize );
+	chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+		 
+	for (int i = 0; i < 64; i++) {
+		JPanel square = new JPanel( new BorderLayout() );
+		chessBoard.add( square );
+			 
+		int row = (i / 8) % 2;
+		if (row == 0)
+		square.setBackground( i % 2 == 0 ? Color.black : Color.white );
+		else
+		square.setBackground( i % 2 == 0 ? Color.white : Color.black );
+	}
+	
+	Echiquier E = new Echiquier();
+	
+	//Jeu B = new Jeu(Couleur.BLANC);
+	//Jeu N = new Jeu(Couleur.NOIR);
+	
+	Iterator <PieceIHM> pieceIterator = E.getPiecesIHM().iterator();
+	while(pieceIterator.hasNext()) {
+		PieceIHM pieceTemp = pieceIterator.next();
+		String typePiece = pieceTemp.type;
+		Couleur couleurPiece = pieceTemp.couleur;
+		List<Coord> list = pieceTemp.list;
+		
+		Iterator <Coord> pos = list.iterator();
+		while(pos.hasNext()) {
+			Coord val = pos.next();
+			int nb;
+			nb = val.x + val.y*8;
+			JLabel piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(typePiece, couleurPiece)));
+			JPanel panel = (JPanel)chessBoard.getComponent(nb); 
+			panel.add(piece);		
+		}
+	}
+	
+	// Creation of the fckin pieces
+	
   
-  JLabel piece = new JLabel( new ImageIcon("./images/pionNoirS.png") );
-  JPanel panel = (JPanel)chessBoard.getComponent(0);
-  panel.add(piece);
-  piece = new JLabel(new ImageIcon("./images/reineBlancS.png"));
-  panel = (JPanel)chessBoard.getComponent(15);
-  panel.add(piece);
-  piece = new JLabel(new ImageIcon("./images/roiBlancS.png"));
-  panel = (JPanel)chessBoard.getComponent(16);
-  panel.add(piece);
-  piece = new JLabel(new ImageIcon("./images/cavalierNoirS.png"));
-  panel = (JPanel)chessBoard.getComponent(20);
-  panel.add(piece);
-
   }
  
   public void mousePressed(MouseEvent e){

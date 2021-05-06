@@ -9,7 +9,7 @@ public class Echiquier {
 	public Jeu JeuCourant;// Jeu du joueur qui doit jouer
 	public String message;//
 	
-	Echiquier (){
+	public Echiquier (){
 		JeuN = new Jeu(Couleur.NOIR);
 		JeuB = new Jeu(Couleur.BLANC);
 		JeuCourant = JeuB;
@@ -21,6 +21,17 @@ public class Echiquier {
 		return this.message;
 	}
 	
+	public boolean isEnd(){
+		return false;		
+	}
+
+	public Couleur getColorCurrentPlayer(){		
+		return true;		
+	}	
+
+	public Couleur getPieceColor(int x, int y){
+		return echiquier.getPieceColor(x, y);
+	}
 	private void setMessage(String message) {
 		this.message=message;
 	}

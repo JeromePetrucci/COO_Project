@@ -80,7 +80,6 @@ public class ChessGame extends Observable implements BoardGames{
 		return echiquier.getMessage();
 	}
 
-
 	public Couleur getColorCurrentPlayer(){		
 		return echiquier.getColorCurrentPlayer();		
 	}	

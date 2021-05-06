@@ -11,9 +11,9 @@ import java.util.List;
  */
 public  class PieceIHM {
 	 
-	String type;
-	Couleur couleur;
-	List<Coord> list;
+	public String type;
+	public Couleur couleur;
+	public List<Coord> list;
 	
 	PieceIHM(String type, Couleur couleur) {
 		this.type = type;
